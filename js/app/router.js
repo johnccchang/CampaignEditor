@@ -42,6 +42,9 @@ define(function (require) {
             	success: function(collection, res, options) {
             		console.log('campaigns request ok');
             		console.log(res);
+            		collection.set(res.campaigns);
+				    var campaignsView = new CampaignsView({ collection: collection });
+				    $('#content').append(campaignsView.render().el);
             	}
             });
             
