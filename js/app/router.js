@@ -7,7 +7,8 @@ define(function (require) {
 		Agencies        = require('app/collections/agencies'),
 		AgenciesView    = require('app/views/agencies'),
 		Advertisers     = require('app/collections/advertisers'),
-		AdvertisersView = require('app/views/advertisers');
+		AdvertisersView = require('app/views/advertisers'),
+		Campaigns	    = require('app/collections/campaigns');
 
     return Backbone.Router.extend({
         routes: {
@@ -32,6 +33,14 @@ define(function (require) {
             		collection.set(res.advertisers);
 				    var advertisersView = new AdvertisersView({ collection: collection });
 				    $('#content').append(advertisersView.render().el);
+            	}
+            });
+            
+            var campaigns = new Campaigns();
+            campaigns.fetch({
+            	success: function(collection, res, options) {
+            		console.log('campaigns request ok');
+            		console.log(res);
             	}
             });
             
