@@ -8,7 +8,8 @@ define(function (require) {
 		AgenciesView    = require('app/views/agencies'),
 		Advertisers     = require('app/collections/advertisers'),
 		AdvertisersView = require('app/views/advertisers'),
-		Campaigns	    = require('app/collections/campaigns');
+		Campaigns	    = require('app/collections/campaigns'),
+		CampaignsView   = require('app/views/campaigns');
 
     return Backbone.Router.extend({
         routes: {
