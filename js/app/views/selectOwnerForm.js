@@ -27,7 +27,7 @@ define(function(require) {
             return this;
         },
         events: {
-        	'click input:submit': 'getCampaigns',
+        	'click button': 'getCampaigns',
         	'change select.agency': 'redrawAdvertisers'
         },
         setRelation: function() {
@@ -37,7 +37,10 @@ define(function(require) {
         },
         redrawAdvertisers: function(e) {
         	var self      = this, 
-        		agency_id = $(e.target).find(':selected option').val();
+        		//agency_id = $(e.target).find(':selected option').val();
+        		agency_id = $('option:selected', e.target).val();
+        		console.log('--> ' + agency_id);
+        		console.log(e.target);
         	if (this.populates.advertisers === undefined ) {
         		this.advertisers.fetch({
         			success: function(collection, res, options) { 
@@ -53,10 +56,8 @@ define(function(require) {
         	}
         },
         getCampaigns: function() {
-        	alert('click');
-        	this.$('form').submit(function() {
-        		return false;
-        	});
+        	this.$('form').submit(false);
+ 			console.log(this.$('form').serialize());
         }
 	});
 }); 

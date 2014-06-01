@@ -1,17 +1,15 @@
 define(function(require) {
 	"use strict";
 	
-	var app = require('app'),
-        tpl = require('text!tpl/advertiser.html');
+	var app = require('app');
 	
 	return Backbone.View.extend({
 		tagName : 'option',
 		initialize : function() {
 			this.render();
 		},
-		template : _.template(tpl),
 		render : function() {
-			this.$el.html(this.template(this.model.toJSON()));
+			this.$el.prop('value', this.model.attributes._id).append(this.model.attributes.name);
 			return this;
 		}
 	});
