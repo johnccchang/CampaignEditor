@@ -12,7 +12,7 @@ define(function(require) {
         },
         template: _.template(tpl),
         render: function () {
-        	this.$('select option:gt(0)').empty();
+        	this.$('select option:gt(0)').remove();
             this.collection.each(this.addOne, this);
             return this;
         },
@@ -20,7 +20,7 @@ define(function(require) {
             var agencyView = new AgencyView({
                 model: agency
             });
-            this.$('select').append(agencyView.el);
+            this.$('select').addClass('agency').append(agencyView.el);
         }
 	});
 }); 

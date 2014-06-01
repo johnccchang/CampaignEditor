@@ -8,10 +8,11 @@ define(function(require) {
 	return Backbone.View.extend({
         initialize: function () {
         	this.$el.append(this.template({ field: 'Advertiser', name: 'advertiser'}));
-            //this.collection.on('add', this.addOne, this);
+            this.collection.on('add', this.addOne, this);
         },
         template: _.template(tpl),
         render: function () {
+        	this.$('select option:gt(0)').remove();
             this.collection.each(this.addOne, this);
             return this;
         },
@@ -19,7 +20,7 @@ define(function(require) {
             var advertiserView = new AdvertiserView({
                 model: advertiser
             });
-            this.$('select').append(advertiserView.el);
+            this.$('select').addClass('advertiser').append(advertiserView.el);
         }
 	});
 }); 

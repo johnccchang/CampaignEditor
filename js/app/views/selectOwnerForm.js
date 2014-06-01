@@ -10,9 +10,13 @@ define(function(require) {
 		
 	return Backbone.View.extend({
 		initialize: function () {
+			this.populates   = {};
 			this.agencies    = new Agencies();
 			this.advertisers = new Advertisers();
-			this.agencies.fetch();
+			var self         = this.populates;
+			this.agencies.fetch({
+				success: function(collection, res, options) { self.agencies = true; }
+			});
 		},
         template: _.template(tpl),
         render: function () {
@@ -23,7 +27,30 @@ define(function(require) {
             return this;
         },
         events: {
-        	'click input:submit': 'getCampaigns'
+        	'click input:submit': 'getCampaigns',
+        	'change select.agency': 'redrawAdvertisers'
+        },
+        setRelation: function() {
+        	_.each(this.agencies.models, function(agency) {
+        		agency.advertisers = this.advertisers.where({ 'agency_id': agency.attributes._id });
+        	}, this);
+        },
+        redrawAdvertisers: function(e) {
+        	var self      = this, 
+        		agency_id = $(e.target).find(':selected option').val();
+        	if (this.populates.advertisers === undefined ) {
+        		this.advertisers.fetch({
+        			success: function(collection, res, options) { 
+        				self.setRelation();
+        				self.advertisers.reset(self.agencies.findWhere({ '_id': agency_id }).advertisers);
+        				self.advertisersView.render();
+        			}
+        		});
+        		this.populates.advertisers = true;
+        	} else {
+        		self.advertisers.reset(self.agencies.findWhere({ '_id': agency_id }).advertisers);
+        		self.advertisersView.render();
+        	}
         },
         getCampaigns: function() {
         	alert('click');
