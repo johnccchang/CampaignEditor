@@ -1,10 +1,8 @@
 define(function(require) {
 	"use strict";
 	
-	var $        = require('jquery'),
-		_        = require('underscore'),
-        Backbone = require('backbone'),
-        tpl      = require('text!tpl/advertiser.html');
+	var app = require('app'),
+        tpl = require('text!tpl/advertiser.html');
 	
 	return Backbone.View.extend({
 		tagName : 'option',

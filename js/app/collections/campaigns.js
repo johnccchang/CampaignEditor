@@ -1,8 +1,7 @@
 define(function(require) {
 	"use strict";
 	
-	var $        = require('jquery'),
-        Backbone = require('backbone'),
+	var app      = require('app'),
         API      = require('api'),
         Campaign = require('app/models/campaign');
 

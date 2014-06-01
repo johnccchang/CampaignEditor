@@ -1,10 +1,8 @@
 define(function(require) {	
 	"use strict";
 	
-	var $            = require('jquery'), 
-		_            = require('underscore'),
-		Backbone     = require('backbone'),
-		tpl          = require('text!tpl/home.html');
+	var app = require('app'),
+		tpl = require('text!tpl/home.html');
 	
 	return Backbone.View.extend({
         initialize: function () {

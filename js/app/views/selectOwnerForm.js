@@ -1,9 +1,7 @@
 define(function(require) {	
 	"use strict";
 	
-	var $               = require('jquery'), 
-		_               = require('underscore'),
-		Backbone        = require('backbone'),
+	var app 		    = require('app'),
 		tpl             = require('text!tpl/selectOwnerForm'),
 		AgenciesView    = require('app/views/agencies'),
 		AdvertisersView = require('app/views/advertisers');

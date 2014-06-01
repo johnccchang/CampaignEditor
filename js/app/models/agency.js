@@ -1,14 +1,16 @@
 define(function(require) {
 	"use strict";
 	
-	var app = require('app');
-        
+	var app         = require('app'), 
+		Advertiser  = require('app/models/advertiser'),
+		Advertisers = require('app/collections/advertisers');
+ 
 	return Backbone.RelationalModel.extend({
 		relations:[{
 			type: Backbone.HasMany,
-			key: 'animals',
-			relatedModel: 'Advertiser',
-			collectionType: 'Advertisers'
+			key: 'advertisers',
+			relatedModel: Advertiser,
+			collectionType: Advertisers
 		}]
 	});
 });
