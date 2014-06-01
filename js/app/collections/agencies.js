@@ -3,10 +3,12 @@ define(function(require) {
 	
 	var app    = require('app'),
         API    = require('api'),
-        Agency = require('app/models/agency');
-
+        Agency = require('app/models/agency'),
+		field  = 'agencies';
+		
 	return Backbone.Collection.extend({
 		model: Agency,
-		url: API.get('agencies')
+		url: API.get(field),
+		parse: API.parse(field)
 	});
 }); 

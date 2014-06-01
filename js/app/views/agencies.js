@@ -12,6 +12,7 @@ define(function(require) {
         },
         template: _.template(tpl),
         render: function () {
+        	this.$('select option:gt(0)').empty();
             this.collection.each(this.addOne, this);
             return this;
         },

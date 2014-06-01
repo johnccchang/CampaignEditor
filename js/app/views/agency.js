@@ -11,7 +11,7 @@ define(function(require) {
 		},
 		template : _.template(tpl),
 		render : function() {
-			this.$el.html(this.template(this.model.toJSON()));
+			this.$el.empty().html(this.template(this.model.toJSON()));
 			return this;
 		}
 	});

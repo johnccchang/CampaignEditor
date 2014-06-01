@@ -9,12 +9,17 @@ define(function(require) {
 		AdvertisersView = require('app/views/advertisers');
 		
 	return Backbone.View.extend({
+		initialize: function () {
+			this.agencies    = new Agencies();
+			this.advertisers = new Advertisers();
+			this.agencies.fetch();
+		},
         template: _.template(tpl),
         render: function () {
             this.$el.empty().append(this.template());
-            this.agencies    = new AgenciesView({ collection: new Agencies() });
-            this.advertisers = new AdvertisersView({ collection: new Advertisers() });
-            this.$('#fields').append(this.agencies.render().el).append(this.advertisers.render().el);
+            this.agenciesView    = new AgenciesView({ collection: this.agencies });
+            this.advertisersView = new AdvertisersView({ collection: this.advertisers });
+            this.$('#fields').append(this.agenciesView.render().el).append(this.advertisersView.render().el);
             return this;
         },
         events: {

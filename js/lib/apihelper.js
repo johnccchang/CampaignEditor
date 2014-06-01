@@ -9,6 +9,11 @@ define(function(require) {
    		'get': function(service, id) {
    			var url = api_url + service + '?api_token=' + api_token;
    			return url;
-   		}
+   		},
+   		'parse': function(field) {
+   			return function(response) {
+   				return response[field];
+   			};
+  		}
    	};
 });
