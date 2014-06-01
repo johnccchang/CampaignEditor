@@ -2,13 +2,12 @@ define(function(require) {
 	"use strict";
 	
 	var app 		   = require('app'),
-		tpl            = require('text!tpl/defaultOption.html'),
+		tpl            = require('text!tpl/genericSelector.html'),
 		AdvertiserView = require('app/views/advertiser');
 	
 	return Backbone.View.extend({
-		tagName: 'select',
         initialize: function () {
-        	this.$el.append(this.template({'entity': 'advertiser'}));
+        	this.$el.append(this.template({ field: 'Advertiser', name: 'advertiser'}));
             //this.collection.on('add', this.addOne, this);
         },
         template: _.template(tpl),
@@ -20,7 +19,7 @@ define(function(require) {
             var advertiserView = new AdvertiserView({
                 model: advertiser
             });
-            this.$el.append(advertiserView.el);
+            this.$('select').append(advertiserView.el);
         }
 	});
 }); 

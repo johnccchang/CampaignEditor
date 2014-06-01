@@ -1,7 +1,8 @@
 define(function (require) {
     "use strict";
 
-	var app 		    = require('app');
+	var app 		    = require('app'),
+		HomeView        = require('app/views/home');
 	/*
 		Agencies        = require('app/collections/agencies'),
 		AgenciesView    = require('app/views/agencies'),
@@ -18,6 +19,9 @@ define(function (require) {
 			//this.home();
 		},
         home: function () {
+        	var homeView = new HomeView();
+        	$('#content').append(homeView.render().el);
+        	
         	/*
             var agencies = new Agencies();
             agencies.fetch({

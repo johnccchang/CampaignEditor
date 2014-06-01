@@ -2,34 +2,20 @@ define(function(require) {
 	"use strict";
 	
 	var app 		    = require('app'),
-		tpl             = require('text!tpl/selectOwnerForm'),
+		tpl             = require('text!tpl/selectOwnerForm.html'),
+		Agencies        = require('app/collections/agencies'),
 		AgenciesView    = require('app/views/agencies'),
+		Advertisers     = require('app/collections/advertisers'),
 		AdvertisersView = require('app/views/advertisers');
-	
+		
 	return Backbone.View.extend({
-		el: "#selectOwnerForm",
-        initialize: function () {
-            //this.collection.on('add', this.addOne, this);
-        },
         template: _.template(tpl),
         render: function () {
-            //this.collection.each(this.addOne, this);
-            
+            this.$el.empty().append(this.template());
+            this.agencies    = new AgenciesView({ collection: new Agencies() });
+            this.advertisers = new AdvertisersView({ collection: new Advertisers() });
+            this.$('#fields').append(this.agencies.render().el).append(this.advertisers.render().el);
             return this;
-        },
-        initialSelect: function() {
-        	var agencies = new Agencies();
-        	
-        },
-        addOne: function (agency) {
-            var agencies = new Agencies();
-            agencies.fetch({
-            	success: function(collection, res, options) {
-				    collection.set(res.agencies);
-				    var agenciesView = new AgenciesView({ collection: collection });
-				    $('#content').append(agenciesView.render().el);
-				}
-            });
         }
 	});
 }); 
