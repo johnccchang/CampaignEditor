@@ -1,14 +1,15 @@
 define(function (require) {
     "use strict";
 
-	var app 		    = require('app'),
+	var app 		    = require('app');
+	/*
 		Agencies        = require('app/collections/agencies'),
 		AgenciesView    = require('app/views/agencies'),
 		Advertisers     = require('app/collections/advertisers'),
 		AdvertisersView = require('app/views/advertisers'),
 		Campaigns	    = require('app/collections/campaigns'),
 		CampaignsView   = require('app/views/campaigns');
-
+*/
     return Backbone.Router.extend({
         routes: {
             "": "home"
@@ -17,6 +18,7 @@ define(function (require) {
 			//this.home();
 		},
         home: function () {
+        	/*
             var agencies = new Agencies();
             agencies.fetch({
             	success: function(collection, res, options) {
@@ -43,6 +45,7 @@ define(function (require) {
 				    $('#content').append(campaignsView.render().el);
             	}
             });
+            */
             
             console.log('homepage rendered!');
         }

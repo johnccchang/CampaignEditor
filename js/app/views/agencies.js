@@ -2,13 +2,12 @@ define(function(require) {
 	"use strict";
 	
 	var app 	   = require('app'),
-		tpl        = require('text!tpl/defaultOption.html'),
+		tpl        = require('text!tpl/genericSelector.html'),
 		AgencyView = require('app/views/agency');
 	
 	return Backbone.View.extend({
-		tagName: 'select',
         initialize: function () {
-        	this.$el.append(this.template({'entity': 'agency'}));
+        	this.$el.append(this.template({field: 'Agency', name: 'agency'}));
             this.collection.on('add', this.addOne, this);
         },
         template: _.template(tpl),
@@ -20,7 +19,7 @@ define(function(require) {
             var agencyView = new AgencyView({
                 model: agency
             });
-            this.$el.append(agencyView.el);
+            this.$('select').append(agencyView.el);
         }
 	});
 }); 
