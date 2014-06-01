@@ -10,6 +10,10 @@ require.config({
 		'backbone' : { 
 			deps: ['underscore', 'jquery'],
 			exports: 'Backbone'
+		},
+		'bbrelational': {
+			deps: ['jquery', 'underscore', 'backbone'],
+			exports: 'Backbone.RelationalModel'
 		}
 	}
 });
