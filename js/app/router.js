@@ -4,10 +4,6 @@ define(function (require) {
 	var app 		    = require('app'),
 		HomeView        = require('app/views/home');
 	/*
-		Agencies        = require('app/collections/agencies'),
-		AgenciesView    = require('app/views/agencies'),
-		Advertisers     = require('app/collections/advertisers'),
-		AdvertisersView = require('app/views/advertisers'),
 		Campaigns	    = require('app/collections/campaigns'),
 		CampaignsView   = require('app/views/campaigns');
 */

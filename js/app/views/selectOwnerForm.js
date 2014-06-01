@@ -16,6 +16,15 @@ define(function(require) {
             this.advertisers = new AdvertisersView({ collection: new Advertisers() });
             this.$('#fields').append(this.agencies.render().el).append(this.advertisers.render().el);
             return this;
+        },
+        events: {
+        	'click input:submit': 'getCampaigns'
+        },
+        getCampaigns: function() {
+        	alert('click');
+        	this.$('form').submit(function() {
+        		return false;
+        	});
         }
 	});
 }); 
