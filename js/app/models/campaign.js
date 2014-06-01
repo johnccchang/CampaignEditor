@@ -3,7 +3,7 @@ define(function(require) {
 	
 	var app = require('app');
         
-	return Backbone.Model.extend({
+	return Backbone.RelationalModel.extend({
 		defaults : {
 			name : "campaign_0"
 		}
