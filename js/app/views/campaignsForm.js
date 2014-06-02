@@ -56,7 +56,7 @@ define(function(require) {
         },
         cancelAll: function(e) {
         	$(e.target).removeClass('cancel-all').addClass('select-all');
-        	this.$('input:checkbox:gt(0)').prop('checked', false);
+        	this.$('input:checkbox').prop('checked', false);
         },
         getRecords: function($targets) {
         	var records = [];

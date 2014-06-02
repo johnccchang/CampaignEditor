@@ -32,7 +32,7 @@ define(function(require) {
        			}, self);
        			
        			$(document).unbind('ajaxSuccess');
-       			console.log('setting success!!');
+       			console.log('data is loaded successfully!!');
        		}
         });
         return self;

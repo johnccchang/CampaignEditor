@@ -41,7 +41,6 @@ define(function(require) {
  			if (agency != -1 && advertiser != -1) {
  				var advertiser = this.advertisers.findWhere({ '_id': advertiser }); 
  				this.campaignsFormView.render(advertiser);
- 				console.log('draw table');
  			} else {
  				this.message.show('error', 'you have to choose agency and advertiser!');
  			}

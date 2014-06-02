@@ -11,7 +11,6 @@ define(function (require) {
         home: function () {
         	var homeView = new HomeView();
         	$('#content').append(homeView.render().el);
-            console.log('homepage rendered!');
         }
     });
 });
