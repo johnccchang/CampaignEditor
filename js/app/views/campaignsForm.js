@@ -24,7 +24,6 @@ define(function(require) {
         	'click input:checkbox.cancel-all': 'cancelAll'
         },
         saveData: function(e) {
-        	this.$('form').submit(false);
         	var checkeds = this.$('input:checkbox:gt(0):checked');
         	var records  = this.getRecords(checkeds);
 			
