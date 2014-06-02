@@ -1,10 +1,10 @@
 define(function(require) {	
 	"use strict";
 	
-	var app              = require('app'),
-		tpl              = require('text!tpl/home.html'),
-		RelationHelper   = require('relationhelper'),
-		FormView         = require('app/views/selectOwnerForm');
+	var app            = require('app'),
+		tpl            = require('text!tpl/home.html'),
+		RelationHelper = require('relationhelper'),
+		FormView       = require('app/views/selectOwnerForm');
 		
 	return Backbone.View.extend({
 		el: '#content',

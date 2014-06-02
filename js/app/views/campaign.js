@@ -10,7 +10,7 @@ define(function(require) {
 			this.render();
 		},
 		template : function(campaign) {
-			return _.template(tpl, { campaign: _.values(_.omit(campaign, ['_id', 'advertiser_id'])) });
+			return _.template(tpl, { keys: _.keys(_.omit(campaign, ['_id', 'advertiser_id'])), campaign: campaign });
 		},
 		render : function() {
 			this.$el.html(this.template(this.model.toJSON()));

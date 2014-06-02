@@ -17,6 +17,12 @@ define(function(require) {
             this.campaignsView = new CampaignsView({ collection: this.campaigns });
             this.$el.empty().append(this.template(tpl)).find('.fields').empty().append(this.campaignsView.render().el);
             return this;
+        },
+        events: {
+        	'click button': 'save'
+        },
+        save: function() {
+        	alert('save data');
         }
 	});
 }); 
