@@ -8,7 +8,7 @@ define(function(require) {
 	return Backbone.View.extend({
 		tagName: 'table',
         initialize: function () {
-            //this.collection.on('add', this.addOne, this);
+            this.collection.on('add', this.addOne, this);
         },
         template: function() {
         	return _.template(tpl, { campaign: _.keys(_.omit(this.collection.models[0].attributes, ['_id', 'advertiser_id'])) });

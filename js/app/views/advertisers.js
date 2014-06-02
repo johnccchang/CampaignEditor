@@ -16,6 +16,10 @@ define(function(require) {
             this.collection.each(this.addOne, this);
             return this;
         },
+        remove: function() {
+        	this.$('select option:gt(0)').remove();
+        	return this;
+        },
         addOne: function (advertiser) {
             var advertiserView = new AdvertiserView({
                 model: advertiser

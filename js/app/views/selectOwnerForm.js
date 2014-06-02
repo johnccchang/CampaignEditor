@@ -3,26 +3,21 @@ define(function(require) {
 	
 	var app 		      = require('app'),
 		tpl               = require('text!tpl/selectOwnerForm.html'),
-		Agencies          = require('app/collections/agencies'),
 		AgenciesView      = require('app/views/agencies'),
 		Advertisers       = require('app/collections/advertisers'),
 		AdvertisersView   = require('app/views/advertisers'),
 		CampaignsFormView = require('app/views/campaignsForm');
 		
 	return Backbone.View.extend({
-		initialize: function () {
-			this.populates   = {};
-			this.agencies    = new Agencies();
+		initialize: function (collections) {
 			this.advertisers = new Advertisers();
-			var self         = this.populates;
-			this.agencies.fetch({
-				success: function(collection, res, options) { self.agencies = true; }
-			});
+			this.collections = {};
+			_.extend(this.collections, collections);
 		},
         template: _.template(tpl),
         render: function () {
             this.$el.empty().append(this.template());
-            this.agenciesView    = new AgenciesView({ collection: this.agencies });
+            this.agenciesView    = new AgenciesView({ collection: this.collections.agencies });
             this.advertisersView = new AdvertisersView({ collection: this.advertisers });
             this.$('#fields').append(this.agenciesView.render().el).append(this.advertisersView.render().el);
             return this;
@@ -31,36 +26,22 @@ define(function(require) {
         	'click button': 'redrawCampaigns',
         	'change select.agency': 'redrawAdvertisers'
         },
-        setAgencyAndAdvertiserRelation: function() {
-        	_.each(this.agencies.models, function(agency) {
-        		agency.advertisers = this.advertisers.where({ 'agency_id': agency.attributes._id });
-        	}, this);
-        },
         redrawAdvertisers: function(e) {
-        	var self      = this,
-        		agency_id = $('option:selected', e.target).val();
-        	if (this.populates.advertisers === undefined ) {
-        		this.advertisers.fetch({
-        			success: function(collection, res, options) { 
-        				self.setAgencyAndAdvertiserRelation();
-        				self.advertisers.reset(self.agencies.findWhere({ '_id': agency_id }).advertisers);
-        				self.advertisersView.render();
-        			}
-        		});
-        		this.populates.advertisers = true;
-        	} else {
-        		self.advertisers.reset(self.agencies.findWhere({ '_id': agency_id }).advertisers);
-        		self.advertisersView.render();
-        	}
+        	var agency_id = $('option:selected', e.target).val();
+        	if (agency_id != '-1') {
+        		this.advertisers.reset(this.collections.agencies.findWhere({ '_id': agency_id }).advertisers);
+        		this.advertisersView.render();
+        	} else this.advertisersView.remove();
         },
         redrawCampaigns: function() {
         	this.$('form').submit(function() { return false; });
         	var agency     = this.$('form select option:selected:eq(0)').val(),
         		advertiser = this.$('form select option:selected:eq(1)').val();
- 			//console.log(this.$('form').serialize());
+
  			if (agency != -1 && advertiser != -1) {
  				var campaignsFormView = new CampaignsFormView();
- 				campaignsFormView.render(advertiser, this);
+ 				var advertiser        = this.advertisers.findWhere({ '_id': advertiser }); 
+ 				campaignsFormView.render(advertiser);
  			} else {
  				alert('you have to choose agency and advertiser!');
  			}
