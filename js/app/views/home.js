@@ -17,7 +17,7 @@ define(function(require) {
         template: _.template(tpl),
         render: function () {
         	this.$el.empty().append(this.template());
-        	this.form = new FormView(this.collections, this.message);
+        	this.form = new FormView({collections: this.collections, message: this.message});
         	this.$('#owner_menu').append(this.form.render().el);
             return this;
         }

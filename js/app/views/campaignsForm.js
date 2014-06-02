@@ -8,7 +8,8 @@ define(function(require) {
 	
 	return Backbone.View.extend({
 		el: '#campaign_list',
-		initialize: function() {
+		initialize: function(options) {
+			_.extend(this, options); // extend properties from options to get message refercence;
 			this.campaigns = new Campaigns();
 		},
         template: _.template(tpl),
@@ -27,18 +28,27 @@ define(function(require) {
         saveData: function(e) {
         	var checkeds = this.$('input:checkbox:gt(0):checked');
         	var records  = this.getRecords(checkeds);
-			
-			// update all checked campaings one by one
-        	_.each(records, function(record) {
-        		var campaign = this.campaigns.findWhere({ '_id': record.id });
-        		var attributes = _.omit(record, 'id');
-        		campaign.save(attributes, {
-        			success: function(model, response, options) {
-        				model.attributes = _.first(response.campaigns);
-        				alert('save data');
-        			}
-        		});
-        	}, this);
+			if (checkeds.length > 0) {
+				// update all checked campaings one by one
+        		_.each(records, function(record) {
+        			var campaign   = this.campaigns.findWhere({ '_id': record.id }),
+        				attributes = _.omit(record, 'id'),
+        				self       = this;
+        			
+        			campaign.save(attributes, {
+        				success: function(model, response, options) {
+        					model.attributes = _.first(response.campaigns);
+        					self.message.show('success');
+        					self.cancelAll({target: self.$('input:checkbox:eq(0)') });
+        				},
+        				error: function(model, response, options) {
+        					self.message.show('error');
+        				}
+        			});
+        		}, this);
+        	} else {
+        		this.message.show('error', 'You have to select at least one record to be updated.');
+        	}
         },
         checkAll: function(e) {
         	$(e.target).removeClass('select-all').addClass('cancel-all');
