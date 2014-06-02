@@ -9,7 +9,8 @@ define(function(require) {
 		CampaignsFormView = require('app/views/campaignsForm');
 		
 	return Backbone.View.extend({
-		initialize: function (collections) {
+		initialize: function (collections, message) {
+			this.message           = message;
 			this.campaignsFormView = new CampaignsFormView();
 			this.advertisers       = new Advertisers();
 			this.collections       = {};
@@ -43,7 +44,7 @@ define(function(require) {
  				var advertiser = this.advertisers.findWhere({ '_id': advertiser }); 
  				this.campaignsFormView.render(advertiser);
  			} else {
- 				alert('you have to choose agency and advertiser!');
+ 				this.message.show('error', 'you have to choose agency and advertiser!');
  			}
         }
 	});
