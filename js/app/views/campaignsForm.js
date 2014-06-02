@@ -19,10 +19,41 @@ define(function(require) {
             return this;
         },
         events: {
-        	'click button': 'save'
+        	'click button': 'save',
+        	'click input:checkbox.select-all': 'checkAll',
+        	'click input:checkbox.cancel-all': 'cancelAll'
         },
         save: function() {
+        	this.$('form').submit(false);
+        	var checkeds = this.$('input:checkbox:gt(0):checked');
+        	var records  = this.getRecords(checkeds);
+        	console.log(records);
+        	_.each(records, function(record) {
+        		var campaign = this.campaigns.findWhere({ '_id': record.id });
+        		var attributes = _.omit(record, 'id');
+        		campaign.save(attributes);
+        	}, this);
         	alert('save data');
+        },
+        checkAll: function(e) {
+        	$(e.target).removeClass('select-all').addClass('cancel-all');
+        	this.$('input:checkbox:gt(0)').prop('checked', true);
+        },
+        cancelAll: function(e) {
+        	$(e.target).removeClass('cancel-all').addClass('select-all');
+        	this.$('input:checkbox:gt(0)').prop('checked', false);
+        },
+        getRecords: function($targets) {
+        	var records = [];
+        	$targets.each(function() {
+        		var elements = $(this).parents('tr').find('[name]');
+        		var data = {};
+        		$.each(elements, function(i, el){
+        			data[el.name] = $(el).val();
+        		});
+        		records.push(data);
+        	});
+        	return records;
         }
 	});
 }); 

@@ -12,6 +12,7 @@ require.config({
 			deps: ['underscore', 'jquery'],
 			exports: 'Backbone'
 		},
+		
 		// set up dependencies for Backbone-relational.
     	'backbone-relational': ['backbone'],
 
