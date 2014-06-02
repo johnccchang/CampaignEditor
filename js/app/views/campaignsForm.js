@@ -15,23 +15,28 @@ define(function(require) {
         render: function(advertiser) {
 			this.campaigns.reset(advertiser.campaigns);
             this.campaignsView = new CampaignsView({ collection: this.campaigns });
-            this.$el.empty().append(this.template(tpl)).find('.fields').empty().append(this.campaignsView.render().el);
+            this.$el.empty().append(this.template(tpl)).find('.fields').append(this.campaignsView.render().el);
             return this;
         },
         events: {
-        	'click button': 'save',
+        	'click button': 'saveData',
         	'click input:checkbox.select-all': 'checkAll',
         	'click input:checkbox.cancel-all': 'cancelAll'
         },
-        save: function() {
+        saveData: function(e) {
         	this.$('form').submit(false);
         	var checkeds = this.$('input:checkbox:gt(0):checked');
         	var records  = this.getRecords(checkeds);
-        	console.log(records);
+			
+			// update all checked campaings one by one
         	_.each(records, function(record) {
         		var campaign = this.campaigns.findWhere({ '_id': record.id });
         		var attributes = _.omit(record, 'id');
-        		campaign.save(attributes);
+        		campaign.save(attributes, {
+        			success: function(model, response, options) {
+        				model.attributes = _.first(response.campaigns);
+        			}
+        		});
         	}, this);
         	alert('save data');
         },
