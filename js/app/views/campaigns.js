@@ -7,6 +7,7 @@ define(function(require) {
 	
 	return Backbone.View.extend({
 		tagName: 'table',
+		className: 'table table-striped',
         initialize: function () {
             this.collection.on('add', this.addOne, this);
         },
