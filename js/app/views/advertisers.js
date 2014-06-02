@@ -6,6 +6,7 @@ define(function(require) {
 		AdvertiserView = require('app/views/advertiser');
 	
 	return Backbone.View.extend({
+		className: 'form-group',
         initialize: function () {
         	this.$el.append(this.template({ field: 'Advertiser', name: 'advertiser'}));
             this.collection.on('add', this.addOne, this);

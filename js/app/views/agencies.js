@@ -6,6 +6,7 @@ define(function(require) {
 		AgencyView = require('app/views/agency');
 	
 	return Backbone.View.extend({
+		className: 'form-group',
         initialize: function () {
         	this.$el.append(this.template({field: 'Agency', name: 'agency'}));
             this.collection.on('add', this.addOne, this);
