@@ -14,8 +14,9 @@
         </td>
     <% } else if (key.indexOf('date') > -1) { %>
         <td>
-            <div class="input-group date time-selector">
-                <input type="text" name="<%= key %>" value="<%= campaign[key] %>" class="form-control"/>
+            <input type="hidden" name="<%= key %>" value="<%= campaign[key] %>" class="form-control"/>
+            <div class="input-group date time-selector"  data-date-format="MM/DD/YY">
+                <input type="text" value="<%= campaign[key] %>" class="form-control"/>
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
         </td>

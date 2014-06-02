@@ -16,9 +16,7 @@ define(function(require) {
 			this.campaigns.reset(advertiser.campaigns);
             this.campaignsView = new CampaignsView({ collection: this.campaigns });
             this.$el.empty().append(this.template(tpl)).find('.fields').append(this.campaignsView.render().el);
-            this.$('.time-selector').datetimepicker();
-            console.log(this.$('.time-selector'));
-            console.log('test');
+            this.setDatePicker();
             return this;
         },
         events: {
@@ -37,10 +35,10 @@ define(function(require) {
         		campaign.save(attributes, {
         			success: function(model, response, options) {
         				model.attributes = _.first(response.campaigns);
+        				alert('save data');
         			}
         		});
         	}, this);
-        	alert('save data');
         },
         checkAll: function(e) {
         	$(e.target).removeClass('select-all').addClass('cancel-all');
@@ -61,6 +59,19 @@ define(function(require) {
         		records.push(data);
         	});
         	return records;
+        },
+        setDatePicker: function() {
+        	this.$('.time-selector').datetimepicker({
+            	pickTime: false
+            }).each(function() {
+            	var date    = new Date($(this).find('input').val());
+            	var dateStr = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear().toString().substring(2);
+            	$(this).data("DateTimePicker").setDate(dateStr);
+            }).on('change', function() {
+            	// when date change, convert the date to UTC string and put into hidden field.
+            	var date = new Date($(this).find('input').val());
+            	$(this).parents('td').find('input[name]').val(date.toISOString());
+            });
         }
 	});
 }); 
