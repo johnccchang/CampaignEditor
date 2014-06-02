@@ -3,7 +3,8 @@ require.config({
 	paths: {
 		'app': '../app',
 		'tpl': '../tpl',
-		'api': 'apihelper'
+		'api': 'apihelper',
+		'bootstrap': 'bootstrap.min'
 	},
 	shim: {
 		'jquery': { exports: '$' },
@@ -12,12 +13,14 @@ require.config({
 			deps: ['underscore', 'jquery'],
 			exports: 'Backbone'
 		},
+		// set up dependencies for bootstrap
+		'bootstrap': ['jquery'],
 		
 		// set up dependencies for Backbone-relational.
     	'backbone-relational': ['backbone'],
 
     	// set up dependencies for the main application.
-    	'app': ['backbone', 'backbone-relational']
+    	'app': ['backbone', 'backbone-relational', 'bootstrap']
 	}
 });
 
