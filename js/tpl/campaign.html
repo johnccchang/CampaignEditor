@@ -1,8 +1,8 @@
-<td><input type="checkbox" name="id" value="<%= campaign._id %>" /></td>
+<td><div class="checkbox"><input type="checkbox" name="id" value="<%= campaign._id %>" /></div></td>
 <% _.each(keys, function(key) { %>
     <% if (key == 'status') { %>
         <td>
-            <select name="<%= key %>">
+            <select name="<%= key %>" class="form-control">
                 <% if (campaign[key]) { %>
                     <option value="true" selected="true">Active</option>
                     <option value="false">Inactive</option>
@@ -13,8 +13,20 @@
             </select>
         </td>
     <% } else if (key.indexOf('date') > -1) { %>
-        <td><input type="text" name="<%= key %>" value="<%= campaign[key] %>"/></td>
+        <td>
+            <div class="input-group date time-selector">
+                <input type="text" name="<%= key %>" value="<%= campaign[key] %>" class="form-control"/>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </td>
+    <% } else if (key == 'budget') { %>
+        <td>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" name="<%= key %>" value="<%= campaign[key] %>" class="form-control"/>
+            </div>
+        </td>
     <% } else { %>
-        <td><input type="text" name="<%= key %>" value="<%= campaign[key] %>"/></td>
+        <td><input type="text" name="<%= key %>" value="<%= campaign[key] %>" class="form-control"/></td>
     <% } %>
 <% }); %>

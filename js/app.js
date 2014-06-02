@@ -4,7 +4,9 @@ require.config({
 		'app': '../app',
 		'tpl': '../tpl',
 		'api': 'apihelper',
-		'bootstrap': 'bootstrap.min'
+		'bootstrap': 'bootstrap.min',
+		'moment': 'moment.min',
+		'datetimepicker': 'bootstrap-datetimepicker.min'
 	},
 	shim: {
 		'jquery': { exports: '$' },
@@ -16,11 +18,14 @@ require.config({
 		// set up dependencies for bootstrap
 		'bootstrap': ['jquery'],
 		
+		// set up dependencies for datetimepicker
+		'datetimepicker': ['bootstrap', 'moment'],
+		
 		// set up dependencies for Backbone-relational.
     	'backbone-relational': ['backbone'],
 
     	// set up dependencies for the main application.
-    	'app': ['backbone', 'backbone-relational', 'bootstrap']
+    	'app': ['backbone', 'backbone-relational', 'bootstrap', 'datetimepicker']
 	}
 });
 

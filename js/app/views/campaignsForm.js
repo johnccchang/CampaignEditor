@@ -16,6 +16,9 @@ define(function(require) {
 			this.campaigns.reset(advertiser.campaigns);
             this.campaignsView = new CampaignsView({ collection: this.campaigns });
             this.$el.empty().append(this.template(tpl)).find('.fields').append(this.campaignsView.render().el);
+            this.$('.time-selector').datetimepicker();
+            console.log(this.$('.time-selector'));
+            console.log('test');
             return this;
         },
         events: {
