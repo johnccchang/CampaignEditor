@@ -1,12 +1,13 @@
 define(function(require) {	
 	"use strict";
 	
-	var app 		    = require('app'),
-		tpl             = require('text!tpl/selectOwnerForm.html'),
-		Agencies        = require('app/collections/agencies'),
-		AgenciesView    = require('app/views/agencies'),
-		Advertisers     = require('app/collections/advertisers'),
-		AdvertisersView = require('app/views/advertisers');
+	var app 		      = require('app'),
+		tpl               = require('text!tpl/selectOwnerForm.html'),
+		Agencies          = require('app/collections/agencies'),
+		AgenciesView      = require('app/views/agencies'),
+		Advertisers       = require('app/collections/advertisers'),
+		AdvertisersView   = require('app/views/advertisers'),
+		CampaignsFormView = require('app/views/campaignsForm');
 		
 	return Backbone.View.extend({
 		initialize: function () {
@@ -27,24 +28,21 @@ define(function(require) {
             return this;
         },
         events: {
-        	'click button': 'getCampaigns',
+        	'click button': 'redrawCampaigns',
         	'change select.agency': 'redrawAdvertisers'
         },
-        setRelation: function() {
+        setAgencyAndAdvertiserRelation: function() {
         	_.each(this.agencies.models, function(agency) {
         		agency.advertisers = this.advertisers.where({ 'agency_id': agency.attributes._id });
         	}, this);
         },
         redrawAdvertisers: function(e) {
-        	var self      = this, 
-        		//agency_id = $(e.target).find(':selected option').val();
+        	var self      = this,
         		agency_id = $('option:selected', e.target).val();
-        		console.log('--> ' + agency_id);
-        		console.log(e.target);
         	if (this.populates.advertisers === undefined ) {
         		this.advertisers.fetch({
         			success: function(collection, res, options) { 
-        				self.setRelation();
+        				self.setAgencyAndAdvertiserRelation();
         				self.advertisers.reset(self.agencies.findWhere({ '_id': agency_id }).advertisers);
         				self.advertisersView.render();
         			}
@@ -55,9 +53,17 @@ define(function(require) {
         		self.advertisersView.render();
         	}
         },
-        getCampaigns: function() {
-        	this.$('form').submit(false);
- 			console.log(this.$('form').serialize());
+        redrawCampaigns: function() {
+        	this.$('form').submit(function() { return false; });
+        	var agency     = this.$('form select option:selected:eq(0)').val(),
+        		advertiser = this.$('form select option:selected:eq(1)').val();
+ 			//console.log(this.$('form').serialize());
+ 			if (agency != -1 && advertiser != -1) {
+ 				var campaignsFormView = new CampaignsFormView();
+ 				campaignsFormView.render(advertiser, this);
+ 			} else {
+ 				alert('you have to choose agency and advertiser!');
+ 			}
         }
 	});
 }); 

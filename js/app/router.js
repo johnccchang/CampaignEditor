@@ -19,23 +19,6 @@ define(function (require) {
         	$('#content').append(homeView.render().el);
         	
         	/*
-            var agencies = new Agencies();
-            agencies.fetch({
-            	success: function(collection, res, options) {
-				    collection.set(res.agencies);
-				    var agenciesView = new AgenciesView({ collection: collection });
-				    $('#content').append(agenciesView.render().el);
-				}
-            });
-            
-            var advertisers = new Advertisers();
-            advertisers.fetch({
-            	success: function(collection, res, options) {
-            		collection.set(res.advertisers);
-				    var advertisersView = new AdvertisersView({ collection: collection });
-				    $('#content').append(advertisersView.render().el);
-            	}
-            });
             
             var campaigns = new Campaigns();
             campaigns.fetch({
